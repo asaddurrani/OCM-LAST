@@ -1,22 +1,22 @@
 ﻿using System.Web.Mvc;
 
-namespace AspNetIdentity2ExtendingUsersAndRoles.Areas.BrakeOil
+namespace AspNetIdentity2ExtendingUsersAndRoles.Areas.SeatFoamSpray
 {
-    public class BrakeOilAreaRegistration : AreaRegistration
+    public class SeatFoamSprayAreaRegistration : AreaRegistration
     {
         public override string AreaName
         {
             get
             {
-                return "BrakeOil";
+                return "SeatFoamSpray";
             }
         }
 
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
-                "BrakeOil_default",
-                "BrakeOil/{controller}/{action}/{id}",
+                "SeatFoamSpray_default",
+                "SeatFoamSpray/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional }
             );
         }

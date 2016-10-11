@@ -1,12 +1,12 @@
 ﻿/*
     Module with the view model for the Vehicle
 */
-define("brakeOil/brakeOil.viewModel",
-    ["jquery", "amplify", "ko", "brakeOil/brakeOil.dataservice", "brakeOil/brakeOil.model", "common/confirmation.viewModel", "common/pagination"],
+define("carShampoo/carShampoo.viewModel",
+    ["jquery", "amplify", "ko", "carShampoo/carShampoo.dataservice", "carShampoo/carShampoo.model", "common/confirmation.viewModel", "common/pagination"],
     function ($, amplify, ko, dataservice, model, confirmation, pagination) {
 
         var ist = window.ist || {};
-        ist.brakeOil = {
+        ist.carShampoo = {
             viewModel: (function () {
                 var // the view 
                     view,
@@ -14,15 +14,15 @@ define("brakeOil/brakeOil.viewModel",
                     //#region Observables 
 
                     //Is Loading Power Steering Oil
-                    isBrakeOilLoaded = ko.observable(false),
+                    isCarShampooLoaded = ko.observable(false),
                     //Power Steering Oils
-                    brakeOils = ko.observableArray([]),
+                    carShampoos = ko.observableArray([]),
                     //search Filter
                     searchFilter = ko.observable(),
                     //selected Power Steering Oil
-                    selectedBrakeOil = ko.observable(),
+                    selectedCarShampoo = ko.observable(),
                     //Is Loading Power Steering Oil
-                    isLoadingBrakeOil = ko.observable(false),
+                    isLoadingCarShampoo = ko.observable(false),
                     //pager
                     pager = ko.observable(),
 
@@ -37,69 +37,69 @@ define("brakeOil/brakeOil.viewModel",
                     },
 
                     //Get Power Steering Oil
-                    getBrakeOils = function () {
-                        isLoadingBrakeOil(true);
-                        dataservice.getBrakeOils({
+                    getCarShampoos = function () {
+                        isLoadingCarShampoo(true);
+                        dataservice.getCarShampoos({
                             SearchString: searchFilter(),
                             PageSize: pager().pageSize(),
                             PageNo: pager().currentPage(),
                         }, {
                             success: function (data) {
-                                brakeOils.removeAll();
+                                carShampoos.removeAll();
                                 if (data != null) {
                                     pager().totalCount(data.TotalCount);
                                     _.each(data.PowerSterringOils, function (item) {
-                                        var module = new model.BrakeOil.Create(item);
-                                        brakeOils.push(module);
+                                        var module = new model.CarShampoo.Create(item);
+                                        carShampoos.push(module);
                                     });
                                 }
-                                isLoadingBrakeOil(false);
+                                isLoadingCarShampoo(false);
                             },
                             error: function (response) {
-                                isLoadingBrakeOil(false);
+                                isLoadingCarShampoo(false);
                                 toastr.error("Error: Failed to Load Power Steering Oil Data." + response);
                             }
                         });
                     },
                     //Create Power Steering Oil
-                    createBrakeOil = function () {
-                        selectedBrakeOil(new model.BrakeOil.Create({}));
-                        view.showBrakeOilDialog();
+                    createCarShampoo = function () {
+                        selectedCarShampoo(new model.CarShampoo.Create({}));
+                        view.showCarShampooDialog();
                     },
                     //Search Power Steering Oil
-                    searchBrakeOil = function () {
-                        getBrakeOils();
+                    searchCarShampoo = function () {
+                        getCarShampoos();
                     },
                     //Delete Power Steering Oil
-                    onDeleteBrakeOil = function () {
+                    onDeleteCarShampoo = function () {
 
                     },
                     //Edit Power Steering Oil
-                    onEditBrakeOil = function () {
-                        if (selectedBrakeOil() != undefined) {
-                            view.showBrakeOilDialog();
+                    onEditCarShampoo = function () {
+                        if (selectedCarShampoo() != undefined) {
+                            view.showCarShampooDialog();
                         }
                     },
                     //Select Power Steering Oil
-                    selectBrakeOil = function (brakeOil) {
-                        if (selectedBrakeOil() != brakeOil) {
-                            selectedBrakeOil(brakeOil);
+                    selectCarShampoo = function (carShampoo) {
+                        if (selectedCarShampoo() != carShampoo) {
+                            selectedCarShampoo(carShampoo);
                         }
                     },
                     //On Save Power Steering Oil
-                    onSaveBrakeOil = function () {
+                    onSaveCarShampoo = function () {
                         if (doBeforeSelect()) {
-                            dataservice.saveBrakeOil(
-                                selectedBrakeOil().convertToServerData(),
+                            dataservice.saveCarShampoo(
+                                selectedCarShampoo().convertToServerData(),
                                 {
                                     success: function (data) {
                                         if (data) {
-                                            var savedBrakeOil = model.BrakeOil.Create(data);
-                                            if (selectedBrakeOil().powerStereringOilId() <= 0 || selectedBrakeOil().powerStereringOilId() == undefined) {
-                                                brakeOils.splice(0, 0, savedBrakeOil);
+                                            var savedCarShampoo = model.CarShampoo.Create(data);
+                                            if (selectedCarShampoo().powerStereringOilId() <= 0 || selectedCarShampoo().powerStereringOilId() == undefined) {
+                                                carShampoos.splice(0, 0, savedCarShampoo);
                                             }
                                             toastr.success("Saved Successfully");
-                                            view.hideBrakeOilDialog();
+                                            view.hideCarShampooDialog();
                                         }
                                     },
                                     error: function (response) {
@@ -111,16 +111,16 @@ define("brakeOil/brakeOil.viewModel",
                     // Do Before Logic
                     doBeforeSelect = function () {
                         var flag = true;
-                        if (!selectedBrakeOil().isValid()) {
-                            selectedBrakeOil().errors.showAllMessages();
+                        if (!selectedCarShampoo().isValid()) {
+                            selectedCarShampoo().errors.showAllMessages();
                             flag = false;
                         }
                         return flag;
                     },
 
                     //On Close Dialog
-                    onCloseBrakeOilDialog = function () {
-                        view.hideBrakeOilDialog();
+                    onCloseCarShampooDialog = function () {
+                        view.hideCarShampooDialog();
                     },
 
                     //#endregion
@@ -129,35 +129,35 @@ define("brakeOil/brakeOil.viewModel",
                     initialize = function (specifiedView) {
                         view = specifiedView;
                         ko.applyBindings(view.viewModel, view.bindingRoot);
-                        pager(pagination.Pagination({}, brakeOils, getBrakeOils));
+                        pager(pagination.Pagination({}, carShampoos, getCarShampoos));
                         getBaseData();
-                        getBrakeOils();
+                        getCarShampoos();
                     };
                 //#endregion
 
 
                 return {
                     //#region Return
-                    isBrakeOilLoaded: isBrakeOilLoaded,
-                    brakeOils: brakeOils,
+                    isCarShampooLoaded: isCarShampooLoaded,
+                    carShampoos: carShampoos,
                     searchFilter: searchFilter,
-                    selectedBrakeOil: selectedBrakeOil,
-                    isLoadingBrakeOil: isLoadingBrakeOil,
+                    selectedCarShampoo: selectedCarShampoo,
+                    isLoadingCarShampoo: isLoadingCarShampoo,
                     pager: pager,
                     getBaseData: getBaseData,
-                    getBrakeOils: getBrakeOils,
-                    createBrakeOil: createBrakeOil,
-                    searchBrakeOil: searchBrakeOil,
-                    onDeleteBrakeOil: onDeleteBrakeOil,
-                    onEditBrakeOil: onEditBrakeOil,
-                    selectBrakeOil: selectBrakeOil,
-                    onSaveBrakeOil: onSaveBrakeOil,
-                    onCloseBrakeOilDialog: onCloseBrakeOilDialog,
+                    getCarShampoos: getCarShampoos,
+                    createCarShampoo: createCarShampoo,
+                    searchCarShampoo: searchCarShampoo,
+                    onDeleteCarShampoo: onDeleteCarShampoo,
+                    onEditCarShampoo: onEditCarShampoo,
+                    selectCarShampoo: selectCarShampoo,
+                    onSaveCarShampoo: onSaveCarShampoo,
+                    onCloseCarShampooDialog: onCloseCarShampooDialog,
                     initialize: initialize
                     //#endregion
                 };
 
             })()
         };
-        return ist.brakeOil.viewModel;
+        return ist.carShampoo.viewModel;
     });

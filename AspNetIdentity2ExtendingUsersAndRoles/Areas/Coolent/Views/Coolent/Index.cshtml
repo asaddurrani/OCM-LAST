@@ -2,23 +2,23 @@
     ViewBag.Title = "Index";
 }
 
-<div class="row" id="brakeOilBinding">
+<div class="row" id="coolentBinding">
     <div class="clearfix">
         <h1 class="pull-left" style=" padding-top: 17px; position: absolute;">Power Steering Oil</h1>
     </div>
     <div class="row searchFilterSection" style="margin-top: 60px;">
         <div class="well" data-bind="with: $root">
-            <form class="form-horizontal" data-bind="submit: searchBrakeOil">
+            <form class="form-horizontal" data-bind="submit: searchCoolent">
                 <div class="col-xs-3">
                     <input type="text" class="form-control" placeholder="<Search>" data-bind="value: searchFilter" />
                 </div>
 
                 <div class="col-xs-1">
                     <div id="createButton">
-                        <button type="button" class="btn btn-default" data-bind="click: createBrakeOil">Create New</button>
+                        <button type="button" class="btn btn-default" data-bind="click: createCoolent">Create New</button>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-success" data-bind="click: searchBrakeOil">Search</button>
+                <button type="submit" class="btn btn-success" data-bind="click: searchCoolent">Search</button>
             </form>
         </div>
     </div>
@@ -33,8 +33,8 @@
                         <th>Price </th>
                     </tr>
                 </thead>
-                <tbody data-bind="foreach: brakeOils">
-                    <tr data-bind="click: $root.selectBrakeOil">
+                <tbody data-bind="foreach: coolents">
+                    <tr data-bind="click: $root.selectCoolent">
                         <td data-bind="text: powerSterringOilName"></td>
                         <td data-bind="text: powerSterringOilCompany"></td>
                         <td data-bind="text: powerSterringOilPrice"></td>
@@ -57,14 +57,14 @@
 
 
     <script id="deleteTemplate" type="text/html">
-        <a href="#" title="Delete"><span class="glyphicon glyphicon-remove" data-bind="click: $root.onDeleteBrakeOil"></span></a>
+        <a href="#" title="Delete"><span class="glyphicon glyphicon-remove" data-bind="click: $root.onDeleteCoolent"></span></a>
     </script>
 
     <script id="editTemplate" type="text/html">
-        <a href="#" title="Edit in Form"><span class="glyphicon glyphicon-edit" data-bind="click: $root.onEditBrakeOil"></span></a>
+        <a href="#" title="Edit in Form"><span class="glyphicon glyphicon-edit" data-bind="click: $root.onEditCoolent"></span></a>
     </script>
 
-    @Html.Partial("_brakeOilDialog")
+    @Html.Partial("_coolentDialog")
 </div>
 
 <!-- ko stopBinding: true -->
@@ -74,6 +74,6 @@
     {
     <script type="text/javascript">
         //add link in require config
-        require(["brakeOil/brakeOil.view", "common/confirmation.view"]);
+        require(["coolent/coolent.view", "common/confirmation.view"]);
     </script>
 }

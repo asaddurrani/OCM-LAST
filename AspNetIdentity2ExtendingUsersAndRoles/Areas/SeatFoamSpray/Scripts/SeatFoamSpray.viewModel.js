@@ -1,12 +1,12 @@
 ﻿/*
     Module with the view model for the Vehicle
 */
-define("brakeOil/brakeOil.viewModel",
-    ["jquery", "amplify", "ko", "brakeOil/brakeOil.dataservice", "brakeOil/brakeOil.model", "common/confirmation.viewModel", "common/pagination"],
+define("seatFoamSpray/seatFoamSpray.viewModel",
+    ["jquery", "amplify", "ko", "seatFoamSpray/seatFoamSpray.dataservice", "seatFoamSpray/seatFoamSpray.model", "common/confirmation.viewModel", "common/pagination"],
     function ($, amplify, ko, dataservice, model, confirmation, pagination) {
 
         var ist = window.ist || {};
-        ist.brakeOil = {
+        ist.seatFoamSpray = {
             viewModel: (function () {
                 var // the view 
                     view,
@@ -14,15 +14,15 @@ define("brakeOil/brakeOil.viewModel",
                     //#region Observables 
 
                     //Is Loading Power Steering Oil
-                    isBrakeOilLoaded = ko.observable(false),
+                    isSeatFoamSprayLoaded = ko.observable(false),
                     //Power Steering Oils
-                    brakeOils = ko.observableArray([]),
+                    seatFoamSprays = ko.observableArray([]),
                     //search Filter
                     searchFilter = ko.observable(),
                     //selected Power Steering Oil
-                    selectedBrakeOil = ko.observable(),
+                    selectedSeatFoamSpray = ko.observable(),
                     //Is Loading Power Steering Oil
-                    isLoadingBrakeOil = ko.observable(false),
+                    isLoadingSeatFoamSpray = ko.observable(false),
                     //pager
                     pager = ko.observable(),
 
@@ -37,69 +37,69 @@ define("brakeOil/brakeOil.viewModel",
                     },
 
                     //Get Power Steering Oil
-                    getBrakeOils = function () {
-                        isLoadingBrakeOil(true);
-                        dataservice.getBrakeOils({
+                    getSeatFoamSprays = function () {
+                        isLoadingSeatFoamSpray(true);
+                        dataservice.getSeatFoamSprays({
                             SearchString: searchFilter(),
                             PageSize: pager().pageSize(),
                             PageNo: pager().currentPage(),
                         }, {
                             success: function (data) {
-                                brakeOils.removeAll();
+                                seatFoamSprays.removeAll();
                                 if (data != null) {
                                     pager().totalCount(data.TotalCount);
                                     _.each(data.PowerSterringOils, function (item) {
-                                        var module = new model.BrakeOil.Create(item);
-                                        brakeOils.push(module);
+                                        var module = new model.SeatFoamSpray.Create(item);
+                                        seatFoamSprays.push(module);
                                     });
                                 }
-                                isLoadingBrakeOil(false);
+                                isLoadingSeatFoamSpray(false);
                             },
                             error: function (response) {
-                                isLoadingBrakeOil(false);
+                                isLoadingSeatFoamSpray(false);
                                 toastr.error("Error: Failed to Load Power Steering Oil Data." + response);
                             }
                         });
                     },
                     //Create Power Steering Oil
-                    createBrakeOil = function () {
-                        selectedBrakeOil(new model.BrakeOil.Create({}));
-                        view.showBrakeOilDialog();
+                    createSeatFoamSpray = function () {
+                        selectedSeatFoamSpray(new model.SeatFoamSpray.Create({}));
+                        view.showSeatFoamSprayDialog();
                     },
                     //Search Power Steering Oil
-                    searchBrakeOil = function () {
-                        getBrakeOils();
+                    searchSeatFoamSpray = function () {
+                        getSeatFoamSprays();
                     },
                     //Delete Power Steering Oil
-                    onDeleteBrakeOil = function () {
+                    onDeleteSeatFoamSpray = function () {
 
                     },
                     //Edit Power Steering Oil
-                    onEditBrakeOil = function () {
-                        if (selectedBrakeOil() != undefined) {
-                            view.showBrakeOilDialog();
+                    onEditSeatFoamSpray = function () {
+                        if (selectedSeatFoamSpray() != undefined) {
+                            view.showSeatFoamSprayDialog();
                         }
                     },
                     //Select Power Steering Oil
-                    selectBrakeOil = function (brakeOil) {
-                        if (selectedBrakeOil() != brakeOil) {
-                            selectedBrakeOil(brakeOil);
+                    selectSeatFoamSpray = function (seatFoamSpray) {
+                        if (selectedSeatFoamSpray() != seatFoamSpray) {
+                            selectedSeatFoamSpray(seatFoamSpray);
                         }
                     },
                     //On Save Power Steering Oil
-                    onSaveBrakeOil = function () {
+                    onSaveSeatFoamSpray = function () {
                         if (doBeforeSelect()) {
-                            dataservice.saveBrakeOil(
-                                selectedBrakeOil().convertToServerData(),
+                            dataservice.saveSeatFoamSpray(
+                                selectedSeatFoamSpray().convertToServerData(),
                                 {
                                     success: function (data) {
                                         if (data) {
-                                            var savedBrakeOil = model.BrakeOil.Create(data);
-                                            if (selectedBrakeOil().powerStereringOilId() <= 0 || selectedBrakeOil().powerStereringOilId() == undefined) {
-                                                brakeOils.splice(0, 0, savedBrakeOil);
+                                            var savedSeatFoamSpray = model.SeatFoamSpray.Create(data);
+                                            if (selectedSeatFoamSpray().powerStereringOilId() <= 0 || selectedSeatFoamSpray().powerStereringOilId() == undefined) {
+                                                seatFoamSprays.splice(0, 0, savedSeatFoamSpray);
                                             }
                                             toastr.success("Saved Successfully");
-                                            view.hideBrakeOilDialog();
+                                            view.hideSeatFoamSprayDialog();
                                         }
                                     },
                                     error: function (response) {
@@ -111,16 +111,16 @@ define("brakeOil/brakeOil.viewModel",
                     // Do Before Logic
                     doBeforeSelect = function () {
                         var flag = true;
-                        if (!selectedBrakeOil().isValid()) {
-                            selectedBrakeOil().errors.showAllMessages();
+                        if (!selectedSeatFoamSpray().isValid()) {
+                            selectedSeatFoamSpray().errors.showAllMessages();
                             flag = false;
                         }
                         return flag;
                     },
 
                     //On Close Dialog
-                    onCloseBrakeOilDialog = function () {
-                        view.hideBrakeOilDialog();
+                    onCloseSeatFoamSprayDialog = function () {
+                        view.hideSeatFoamSprayDialog();
                     },
 
                     //#endregion
@@ -129,35 +129,35 @@ define("brakeOil/brakeOil.viewModel",
                     initialize = function (specifiedView) {
                         view = specifiedView;
                         ko.applyBindings(view.viewModel, view.bindingRoot);
-                        pager(pagination.Pagination({}, brakeOils, getBrakeOils));
+                        pager(pagination.Pagination({}, seatFoamSprays, getSeatFoamSprays));
                         getBaseData();
-                        getBrakeOils();
+                        getSeatFoamSprays();
                     };
                 //#endregion
 
 
                 return {
                     //#region Return
-                    isBrakeOilLoaded: isBrakeOilLoaded,
-                    brakeOils: brakeOils,
+                    isSeatFoamSprayLoaded: isSeatFoamSprayLoaded,
+                    seatFoamSprays: seatFoamSprays,
                     searchFilter: searchFilter,
-                    selectedBrakeOil: selectedBrakeOil,
-                    isLoadingBrakeOil: isLoadingBrakeOil,
+                    selectedSeatFoamSpray: selectedSeatFoamSpray,
+                    isLoadingSeatFoamSpray: isLoadingSeatFoamSpray,
                     pager: pager,
                     getBaseData: getBaseData,
-                    getBrakeOils: getBrakeOils,
-                    createBrakeOil: createBrakeOil,
-                    searchBrakeOil: searchBrakeOil,
-                    onDeleteBrakeOil: onDeleteBrakeOil,
-                    onEditBrakeOil: onEditBrakeOil,
-                    selectBrakeOil: selectBrakeOil,
-                    onSaveBrakeOil: onSaveBrakeOil,
-                    onCloseBrakeOilDialog: onCloseBrakeOilDialog,
+                    getSeatFoamSprays: getSeatFoamSprays,
+                    createSeatFoamSpray: createSeatFoamSpray,
+                    searchSeatFoamSpray: searchSeatFoamSpray,
+                    onDeleteSeatFoamSpray: onDeleteSeatFoamSpray,
+                    onEditSeatFoamSpray: onEditSeatFoamSpray,
+                    selectSeatFoamSpray: selectSeatFoamSpray,
+                    onSaveSeatFoamSpray: onSaveSeatFoamSpray,
+                    onCloseSeatFoamSprayDialog: onCloseSeatFoamSprayDialog,
                     initialize: initialize
                     //#endregion
                 };
 
             })()
         };
-        return ist.brakeOil.viewModel;
+        return ist.seatFoamSpray.viewModel;
     });

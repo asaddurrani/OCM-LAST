@@ -15,6 +15,8 @@
             "record": "/Areas/Record/Scripts",
             "airFilter": "/Areas/AirFilter/Scripts",
             "brakeOil": "/Areas/BrakeOil/Scripts",
+            "bodyPolish": "/Areas/BodyPolish/Scripts",
+            "bodyWax": "/Areas/BodyWax/Scripts",
             "autoTransFluid": "/Areas/AutoTransFluid/Scripts",
             "oilFilter": "/Areas/OilFilter/Scripts",
             "powerSteeringOil": "/Areas/PowerSteeringOil/Scripts",

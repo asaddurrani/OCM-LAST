@@ -1,12 +1,12 @@
 ﻿/*
     Module with the view model for the Vehicle
 */
-define("brakeOil/brakeOil.viewModel",
-    ["jquery", "amplify", "ko", "brakeOil/brakeOil.dataservice", "brakeOil/brakeOil.model", "common/confirmation.viewModel", "common/pagination"],
+define("coolent/coolent.viewModel",
+    ["jquery", "amplify", "ko", "coolent/coolent.dataservice", "coolent/coolent.model", "common/confirmation.viewModel", "common/pagination"],
     function ($, amplify, ko, dataservice, model, confirmation, pagination) {
 
         var ist = window.ist || {};
-        ist.brakeOil = {
+        ist.coolent = {
             viewModel: (function () {
                 var // the view 
                     view,
@@ -14,15 +14,15 @@ define("brakeOil/brakeOil.viewModel",
                     //#region Observables 
 
                     //Is Loading Power Steering Oil
-                    isBrakeOilLoaded = ko.observable(false),
+                    isCoolentLoaded = ko.observable(false),
                     //Power Steering Oils
-                    brakeOils = ko.observableArray([]),
+                    coolents = ko.observableArray([]),
                     //search Filter
                     searchFilter = ko.observable(),
                     //selected Power Steering Oil
-                    selectedBrakeOil = ko.observable(),
+                    selectedCoolent = ko.observable(),
                     //Is Loading Power Steering Oil
-                    isLoadingBrakeOil = ko.observable(false),
+                    isLoadingCoolent = ko.observable(false),
                     //pager
                     pager = ko.observable(),
 
@@ -37,69 +37,69 @@ define("brakeOil/brakeOil.viewModel",
                     },
 
                     //Get Power Steering Oil
-                    getBrakeOils = function () {
-                        isLoadingBrakeOil(true);
-                        dataservice.getBrakeOils({
+                    getCoolents = function () {
+                        isLoadingCoolent(true);
+                        dataservice.getCoolents({
                             SearchString: searchFilter(),
                             PageSize: pager().pageSize(),
                             PageNo: pager().currentPage(),
                         }, {
                             success: function (data) {
-                                brakeOils.removeAll();
+                                coolents.removeAll();
                                 if (data != null) {
                                     pager().totalCount(data.TotalCount);
                                     _.each(data.PowerSterringOils, function (item) {
-                                        var module = new model.BrakeOil.Create(item);
-                                        brakeOils.push(module);
+                                        var module = new model.Coolent.Create(item);
+                                        coolents.push(module);
                                     });
                                 }
-                                isLoadingBrakeOil(false);
+                                isLoadingCoolent(false);
                             },
                             error: function (response) {
-                                isLoadingBrakeOil(false);
+                                isLoadingCoolent(false);
                                 toastr.error("Error: Failed to Load Power Steering Oil Data." + response);
                             }
                         });
                     },
                     //Create Power Steering Oil
-                    createBrakeOil = function () {
-                        selectedBrakeOil(new model.BrakeOil.Create({}));
-                        view.showBrakeOilDialog();
+                    createCoolent = function () {
+                        selectedCoolent(new model.Coolent.Create({}));
+                        view.showCoolentDialog();
                     },
                     //Search Power Steering Oil
-                    searchBrakeOil = function () {
-                        getBrakeOils();
+                    searchCoolent = function () {
+                        getCoolents();
                     },
                     //Delete Power Steering Oil
-                    onDeleteBrakeOil = function () {
+                    onDeleteCoolent = function () {
 
                     },
                     //Edit Power Steering Oil
-                    onEditBrakeOil = function () {
-                        if (selectedBrakeOil() != undefined) {
-                            view.showBrakeOilDialog();
+                    onEditCoolent = function () {
+                        if (selectedCoolent() != undefined) {
+                            view.showCoolentDialog();
                         }
                     },
                     //Select Power Steering Oil
-                    selectBrakeOil = function (brakeOil) {
-                        if (selectedBrakeOil() != brakeOil) {
-                            selectedBrakeOil(brakeOil);
+                    selectCoolent = function (coolent) {
+                        if (selectedCoolent() != coolent) {
+                            selectedCoolent(coolent);
                         }
                     },
                     //On Save Power Steering Oil
-                    onSaveBrakeOil = function () {
+                    onSaveCoolent = function () {
                         if (doBeforeSelect()) {
-                            dataservice.saveBrakeOil(
-                                selectedBrakeOil().convertToServerData(),
+                            dataservice.saveCoolent(
+                                selectedCoolent().convertToServerData(),
                                 {
                                     success: function (data) {
                                         if (data) {
-                                            var savedBrakeOil = model.BrakeOil.Create(data);
-                                            if (selectedBrakeOil().powerStereringOilId() <= 0 || selectedBrakeOil().powerStereringOilId() == undefined) {
-                                                brakeOils.splice(0, 0, savedBrakeOil);
+                                            var savedCoolent = model.Coolent.Create(data);
+                                            if (selectedCoolent().powerStereringOilId() <= 0 || selectedCoolent().powerStereringOilId() == undefined) {
+                                                coolents.splice(0, 0, savedCoolent);
                                             }
                                             toastr.success("Saved Successfully");
-                                            view.hideBrakeOilDialog();
+                                            view.hideCoolentDialog();
                                         }
                                     },
                                     error: function (response) {
@@ -111,16 +111,16 @@ define("brakeOil/brakeOil.viewModel",
                     // Do Before Logic
                     doBeforeSelect = function () {
                         var flag = true;
-                        if (!selectedBrakeOil().isValid()) {
-                            selectedBrakeOil().errors.showAllMessages();
+                        if (!selectedCoolent().isValid()) {
+                            selectedCoolent().errors.showAllMessages();
                             flag = false;
                         }
                         return flag;
                     },
 
                     //On Close Dialog
-                    onCloseBrakeOilDialog = function () {
-                        view.hideBrakeOilDialog();
+                    onCloseCoolentDialog = function () {
+                        view.hideCoolentDialog();
                     },
 
                     //#endregion
@@ -129,35 +129,35 @@ define("brakeOil/brakeOil.viewModel",
                     initialize = function (specifiedView) {
                         view = specifiedView;
                         ko.applyBindings(view.viewModel, view.bindingRoot);
-                        pager(pagination.Pagination({}, brakeOils, getBrakeOils));
+                        pager(pagination.Pagination({}, coolents, getCoolents));
                         getBaseData();
-                        getBrakeOils();
+                        getCoolents();
                     };
                 //#endregion
 
 
                 return {
                     //#region Return
-                    isBrakeOilLoaded: isBrakeOilLoaded,
-                    brakeOils: brakeOils,
+                    isCoolentLoaded: isCoolentLoaded,
+                    coolents: coolents,
                     searchFilter: searchFilter,
-                    selectedBrakeOil: selectedBrakeOil,
-                    isLoadingBrakeOil: isLoadingBrakeOil,
+                    selectedCoolent: selectedCoolent,
+                    isLoadingCoolent: isLoadingCoolent,
                     pager: pager,
                     getBaseData: getBaseData,
-                    getBrakeOils: getBrakeOils,
-                    createBrakeOil: createBrakeOil,
-                    searchBrakeOil: searchBrakeOil,
-                    onDeleteBrakeOil: onDeleteBrakeOil,
-                    onEditBrakeOil: onEditBrakeOil,
-                    selectBrakeOil: selectBrakeOil,
-                    onSaveBrakeOil: onSaveBrakeOil,
-                    onCloseBrakeOilDialog: onCloseBrakeOilDialog,
+                    getCoolents: getCoolents,
+                    createCoolent: createCoolent,
+                    searchCoolent: searchCoolent,
+                    onDeleteCoolent: onDeleteCoolent,
+                    onEditCoolent: onEditCoolent,
+                    selectCoolent: selectCoolent,
+                    onSaveCoolent: onSaveCoolent,
+                    onCloseCoolentDialog: onCloseCoolentDialog,
                     initialize: initialize
                     //#endregion
                 };
 
             })()
         };
-        return ist.brakeOil.viewModel;
+        return ist.coolent.viewModel;
     });

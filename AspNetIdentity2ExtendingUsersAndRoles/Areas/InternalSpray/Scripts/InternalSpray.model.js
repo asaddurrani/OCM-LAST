@@ -3,7 +3,7 @@
     var
     //#region Brake Oil Filter entity
     // ReSharper disable InconsistentNaming
-    BrakeOil = function (specifiedPowerStereringOilId, specifiedPowerSterringOilName, specifiedPowerSterringOilCompany, specifiedPowerSterringOilPrice) {
+    InternalSpray = function (specifiedPowerStereringOilId, specifiedPowerSterringOilName, specifiedPowerSterringOilCompany, specifiedPowerSterringOilPrice) {
         // ReSharper restore InconsistentNaming
         var // Reference to this object
             self,
@@ -69,12 +69,12 @@
     };
 
     // Brake Oil Factory
-    BrakeOil.Create = function (source) {
-        return new BrakeOil(source.PowerStereringOilId, source.PowerSterringOilName, source.PowerSterringOilCompany, source.PowerSterringOilPrice);
+    InternalSpray.Create = function (source) {
+        return new InternalSpray(source.PowerStereringOilId, source.PowerSterringOilName, source.PowerSterringOilCompany, source.PowerSterringOilPrice);
     };
     //#endregion
 
     return {
-        BrakeOil: BrakeOil,
+        InternalSpray: InternalSpray,
     };
 });

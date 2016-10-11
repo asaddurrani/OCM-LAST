@@ -1,12 +1,12 @@
 ﻿/*
     Module with the view model for the Vehicle
 */
-define("brakeOil/brakeOil.viewModel",
-    ["jquery", "amplify", "ko", "brakeOil/brakeOil.dataservice", "brakeOil/brakeOil.model", "common/confirmation.viewModel", "common/pagination"],
+define("petrolAdditive/petrolAdditive.viewModel",
+    ["jquery", "amplify", "ko", "petrolAdditive/petrolAdditive.dataservice", "petrolAdditive/petrolAdditive.model", "common/confirmation.viewModel", "common/pagination"],
     function ($, amplify, ko, dataservice, model, confirmation, pagination) {
 
         var ist = window.ist || {};
-        ist.brakeOil = {
+        ist.petrolAdditive = {
             viewModel: (function () {
                 var // the view 
                     view,
@@ -14,15 +14,15 @@ define("brakeOil/brakeOil.viewModel",
                     //#region Observables 
 
                     //Is Loading Power Steering Oil
-                    isBrakeOilLoaded = ko.observable(false),
+                    isPetrolAdditiveLoaded = ko.observable(false),
                     //Power Steering Oils
-                    brakeOils = ko.observableArray([]),
+                    petrolAdditives = ko.observableArray([]),
                     //search Filter
                     searchFilter = ko.observable(),
                     //selected Power Steering Oil
-                    selectedBrakeOil = ko.observable(),
+                    selectedPetrolAdditive = ko.observable(),
                     //Is Loading Power Steering Oil
-                    isLoadingBrakeOil = ko.observable(false),
+                    isLoadingPetrolAdditive = ko.observable(false),
                     //pager
                     pager = ko.observable(),
 
@@ -37,69 +37,69 @@ define("brakeOil/brakeOil.viewModel",
                     },
 
                     //Get Power Steering Oil
-                    getBrakeOils = function () {
-                        isLoadingBrakeOil(true);
-                        dataservice.getBrakeOils({
+                    getPetrolAdditives = function () {
+                        isLoadingPetrolAdditive(true);
+                        dataservice.getPetrolAdditives({
                             SearchString: searchFilter(),
                             PageSize: pager().pageSize(),
                             PageNo: pager().currentPage(),
                         }, {
                             success: function (data) {
-                                brakeOils.removeAll();
+                                petrolAdditives.removeAll();
                                 if (data != null) {
                                     pager().totalCount(data.TotalCount);
                                     _.each(data.PowerSterringOils, function (item) {
-                                        var module = new model.BrakeOil.Create(item);
-                                        brakeOils.push(module);
+                                        var module = new model.PetrolAdditive.Create(item);
+                                        petrolAdditives.push(module);
                                     });
                                 }
-                                isLoadingBrakeOil(false);
+                                isLoadingPetrolAdditive(false);
                             },
                             error: function (response) {
-                                isLoadingBrakeOil(false);
+                                isLoadingPetrolAdditive(false);
                                 toastr.error("Error: Failed to Load Power Steering Oil Data." + response);
                             }
                         });
                     },
                     //Create Power Steering Oil
-                    createBrakeOil = function () {
-                        selectedBrakeOil(new model.BrakeOil.Create({}));
-                        view.showBrakeOilDialog();
+                    createPetrolAdditive = function () {
+                        selectedPetrolAdditive(new model.PetrolAdditive.Create({}));
+                        view.showPetrolAdditiveDialog();
                     },
                     //Search Power Steering Oil
-                    searchBrakeOil = function () {
-                        getBrakeOils();
+                    searchPetrolAdditive = function () {
+                        getPetrolAdditives();
                     },
                     //Delete Power Steering Oil
-                    onDeleteBrakeOil = function () {
+                    onDeletePetrolAdditive = function () {
 
                     },
                     //Edit Power Steering Oil
-                    onEditBrakeOil = function () {
-                        if (selectedBrakeOil() != undefined) {
-                            view.showBrakeOilDialog();
+                    onEditPetrolAdditive = function () {
+                        if (selectedPetrolAdditive() != undefined) {
+                            view.showPetrolAdditiveDialog();
                         }
                     },
                     //Select Power Steering Oil
-                    selectBrakeOil = function (brakeOil) {
-                        if (selectedBrakeOil() != brakeOil) {
-                            selectedBrakeOil(brakeOil);
+                    selectPetrolAdditive = function (petrolAdditive) {
+                        if (selectedPetrolAdditive() != petrolAdditive) {
+                            selectedPetrolAdditive(petrolAdditive);
                         }
                     },
                     //On Save Power Steering Oil
-                    onSaveBrakeOil = function () {
+                    onSavePetrolAdditive = function () {
                         if (doBeforeSelect()) {
-                            dataservice.saveBrakeOil(
-                                selectedBrakeOil().convertToServerData(),
+                            dataservice.savePetrolAdditive(
+                                selectedPetrolAdditive().convertToServerData(),
                                 {
                                     success: function (data) {
                                         if (data) {
-                                            var savedBrakeOil = model.BrakeOil.Create(data);
-                                            if (selectedBrakeOil().powerStereringOilId() <= 0 || selectedBrakeOil().powerStereringOilId() == undefined) {
-                                                brakeOils.splice(0, 0, savedBrakeOil);
+                                            var savedPetrolAdditive = model.PetrolAdditive.Create(data);
+                                            if (selectedPetrolAdditive().powerStereringOilId() <= 0 || selectedPetrolAdditive().powerStereringOilId() == undefined) {
+                                                petrolAdditives.splice(0, 0, savedPetrolAdditive);
                                             }
                                             toastr.success("Saved Successfully");
-                                            view.hideBrakeOilDialog();
+                                            view.hidePetrolAdditiveDialog();
                                         }
                                     },
                                     error: function (response) {
@@ -111,16 +111,16 @@ define("brakeOil/brakeOil.viewModel",
                     // Do Before Logic
                     doBeforeSelect = function () {
                         var flag = true;
-                        if (!selectedBrakeOil().isValid()) {
-                            selectedBrakeOil().errors.showAllMessages();
+                        if (!selectedPetrolAdditive().isValid()) {
+                            selectedPetrolAdditive().errors.showAllMessages();
                             flag = false;
                         }
                         return flag;
                     },
 
                     //On Close Dialog
-                    onCloseBrakeOilDialog = function () {
-                        view.hideBrakeOilDialog();
+                    onClosePetrolAdditiveDialog = function () {
+                        view.hidePetrolAdditiveDialog();
                     },
 
                     //#endregion
@@ -129,35 +129,35 @@ define("brakeOil/brakeOil.viewModel",
                     initialize = function (specifiedView) {
                         view = specifiedView;
                         ko.applyBindings(view.viewModel, view.bindingRoot);
-                        pager(pagination.Pagination({}, brakeOils, getBrakeOils));
+                        pager(pagination.Pagination({}, petrolAdditives, getPetrolAdditives));
                         getBaseData();
-                        getBrakeOils();
+                        getPetrolAdditives();
                     };
                 //#endregion
 
 
                 return {
                     //#region Return
-                    isBrakeOilLoaded: isBrakeOilLoaded,
-                    brakeOils: brakeOils,
+                    isPetrolAdditiveLoaded: isPetrolAdditiveLoaded,
+                    petrolAdditives: petrolAdditives,
                     searchFilter: searchFilter,
-                    selectedBrakeOil: selectedBrakeOil,
-                    isLoadingBrakeOil: isLoadingBrakeOil,
+                    selectedPetrolAdditive: selectedPetrolAdditive,
+                    isLoadingPetrolAdditive: isLoadingPetrolAdditive,
                     pager: pager,
                     getBaseData: getBaseData,
-                    getBrakeOils: getBrakeOils,
-                    createBrakeOil: createBrakeOil,
-                    searchBrakeOil: searchBrakeOil,
-                    onDeleteBrakeOil: onDeleteBrakeOil,
-                    onEditBrakeOil: onEditBrakeOil,
-                    selectBrakeOil: selectBrakeOil,
-                    onSaveBrakeOil: onSaveBrakeOil,
-                    onCloseBrakeOilDialog: onCloseBrakeOilDialog,
+                    getPetrolAdditives: getPetrolAdditives,
+                    createPetrolAdditive: createPetrolAdditive,
+                    searchPetrolAdditive: searchPetrolAdditive,
+                    onDeletePetrolAdditive: onDeletePetrolAdditive,
+                    onEditPetrolAdditive: onEditPetrolAdditive,
+                    selectPetrolAdditive: selectPetrolAdditive,
+                    onSavePetrolAdditive: onSavePetrolAdditive,
+                    onClosePetrolAdditiveDialog: onClosePetrolAdditiveDialog,
                     initialize: initialize
                     //#endregion
                 };
 
             })()
         };
-        return ist.brakeOil.viewModel;
+        return ist.petrolAdditive.viewModel;
     });

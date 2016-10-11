@@ -29,7 +29,7 @@ define("brakeOil/brakeOil.view",
                     }
 
                     // Handle Sorting
-                    //handleSorting("brakeOilTable", viewModel.sortOn, viewModel.sortIsAsc, viewModel.getVehicles);
+                    handleSorting("brakeOilTable", viewModel.sortOn, viewModel.sortIsAsc, viewModel.getVehicles);
                 };
 
             initialize();

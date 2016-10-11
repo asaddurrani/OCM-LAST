@@ -1,12 +1,12 @@
 ﻿/*
     Module with the view model for the Vehicle
 */
-define("brakeOil/brakeOil.viewModel",
-    ["jquery", "amplify", "ko", "brakeOil/brakeOil.dataservice", "brakeOil/brakeOil.model", "common/confirmation.viewModel", "common/pagination"],
+define("manualTransFluid/manualTransFluid.viewModel",
+    ["jquery", "amplify", "ko", "manualTransFluid/manualTransFluid.dataservice", "manualTransFluid/manualTransFluid.model", "common/confirmation.viewModel", "common/pagination"],
     function ($, amplify, ko, dataservice, model, confirmation, pagination) {
 
         var ist = window.ist || {};
-        ist.brakeOil = {
+        ist.manualTransFluid = {
             viewModel: (function () {
                 var // the view 
                     view,
@@ -14,15 +14,15 @@ define("brakeOil/brakeOil.viewModel",
                     //#region Observables 
 
                     //Is Loading Power Steering Oil
-                    isBrakeOilLoaded = ko.observable(false),
+                    isManualTransFluidLoaded = ko.observable(false),
                     //Power Steering Oils
-                    brakeOils = ko.observableArray([]),
+                    manualTransFluids = ko.observableArray([]),
                     //search Filter
                     searchFilter = ko.observable(),
                     //selected Power Steering Oil
-                    selectedBrakeOil = ko.observable(),
+                    selectedManualTransFluid = ko.observable(),
                     //Is Loading Power Steering Oil
-                    isLoadingBrakeOil = ko.observable(false),
+                    isLoadingManualTransFluid = ko.observable(false),
                     //pager
                     pager = ko.observable(),
 
@@ -37,69 +37,69 @@ define("brakeOil/brakeOil.viewModel",
                     },
 
                     //Get Power Steering Oil
-                    getBrakeOils = function () {
-                        isLoadingBrakeOil(true);
-                        dataservice.getBrakeOils({
+                    getManualTransFluids = function () {
+                        isLoadingManualTransFluid(true);
+                        dataservice.getManualTransFluids({
                             SearchString: searchFilter(),
                             PageSize: pager().pageSize(),
                             PageNo: pager().currentPage(),
                         }, {
                             success: function (data) {
-                                brakeOils.removeAll();
+                                manualTransFluids.removeAll();
                                 if (data != null) {
                                     pager().totalCount(data.TotalCount);
                                     _.each(data.PowerSterringOils, function (item) {
-                                        var module = new model.BrakeOil.Create(item);
-                                        brakeOils.push(module);
+                                        var module = new model.ManualTransFluid.Create(item);
+                                        manualTransFluids.push(module);
                                     });
                                 }
-                                isLoadingBrakeOil(false);
+                                isLoadingManualTransFluid(false);
                             },
                             error: function (response) {
-                                isLoadingBrakeOil(false);
+                                isLoadingManualTransFluid(false);
                                 toastr.error("Error: Failed to Load Power Steering Oil Data." + response);
                             }
                         });
                     },
                     //Create Power Steering Oil
-                    createBrakeOil = function () {
-                        selectedBrakeOil(new model.BrakeOil.Create({}));
-                        view.showBrakeOilDialog();
+                    createManualTransFluid = function () {
+                        selectedManualTransFluid(new model.ManualTransFluid.Create({}));
+                        view.showManualTransFluidDialog();
                     },
                     //Search Power Steering Oil
-                    searchBrakeOil = function () {
-                        getBrakeOils();
+                    searchManualTransFluid = function () {
+                        getManualTransFluids();
                     },
                     //Delete Power Steering Oil
-                    onDeleteBrakeOil = function () {
+                    onDeleteManualTransFluid = function () {
 
                     },
                     //Edit Power Steering Oil
-                    onEditBrakeOil = function () {
-                        if (selectedBrakeOil() != undefined) {
-                            view.showBrakeOilDialog();
+                    onEditManualTransFluid = function () {
+                        if (selectedManualTransFluid() != undefined) {
+                            view.showManualTransFluidDialog();
                         }
                     },
                     //Select Power Steering Oil
-                    selectBrakeOil = function (brakeOil) {
-                        if (selectedBrakeOil() != brakeOil) {
-                            selectedBrakeOil(brakeOil);
+                    selectManualTransFluid = function (manualTransFluid) {
+                        if (selectedManualTransFluid() != manualTransFluid) {
+                            selectedManualTransFluid(manualTransFluid);
                         }
                     },
                     //On Save Power Steering Oil
-                    onSaveBrakeOil = function () {
+                    onSaveManualTransFluid = function () {
                         if (doBeforeSelect()) {
-                            dataservice.saveBrakeOil(
-                                selectedBrakeOil().convertToServerData(),
+                            dataservice.saveManualTransFluid(
+                                selectedManualTransFluid().convertToServerData(),
                                 {
                                     success: function (data) {
                                         if (data) {
-                                            var savedBrakeOil = model.BrakeOil.Create(data);
-                                            if (selectedBrakeOil().powerStereringOilId() <= 0 || selectedBrakeOil().powerStereringOilId() == undefined) {
-                                                brakeOils.splice(0, 0, savedBrakeOil);
+                                            var savedManualTransFluid = model.ManualTransFluid.Create(data);
+                                            if (selectedManualTransFluid().powerStereringOilId() <= 0 || selectedManualTransFluid().powerStereringOilId() == undefined) {
+                                                manualTransFluids.splice(0, 0, savedManualTransFluid);
                                             }
                                             toastr.success("Saved Successfully");
-                                            view.hideBrakeOilDialog();
+                                            view.hideManualTransFluidDialog();
                                         }
                                     },
                                     error: function (response) {
@@ -111,16 +111,16 @@ define("brakeOil/brakeOil.viewModel",
                     // Do Before Logic
                     doBeforeSelect = function () {
                         var flag = true;
-                        if (!selectedBrakeOil().isValid()) {
-                            selectedBrakeOil().errors.showAllMessages();
+                        if (!selectedManualTransFluid().isValid()) {
+                            selectedManualTransFluid().errors.showAllMessages();
                             flag = false;
                         }
                         return flag;
                     },
 
                     //On Close Dialog
-                    onCloseBrakeOilDialog = function () {
-                        view.hideBrakeOilDialog();
+                    onCloseManualTransFluidDialog = function () {
+                        view.hideManualTransFluidDialog();
                     },
 
                     //#endregion
@@ -129,35 +129,35 @@ define("brakeOil/brakeOil.viewModel",
                     initialize = function (specifiedView) {
                         view = specifiedView;
                         ko.applyBindings(view.viewModel, view.bindingRoot);
-                        pager(pagination.Pagination({}, brakeOils, getBrakeOils));
+                        pager(pagination.Pagination({}, manualTransFluids, getManualTransFluids));
                         getBaseData();
-                        getBrakeOils();
+                        getManualTransFluids();
                     };
                 //#endregion
 
 
                 return {
                     //#region Return
-                    isBrakeOilLoaded: isBrakeOilLoaded,
-                    brakeOils: brakeOils,
+                    isManualTransFluidLoaded: isManualTransFluidLoaded,
+                    manualTransFluids: manualTransFluids,
                     searchFilter: searchFilter,
-                    selectedBrakeOil: selectedBrakeOil,
-                    isLoadingBrakeOil: isLoadingBrakeOil,
+                    selectedManualTransFluid: selectedManualTransFluid,
+                    isLoadingManualTransFluid: isLoadingManualTransFluid,
                     pager: pager,
                     getBaseData: getBaseData,
-                    getBrakeOils: getBrakeOils,
-                    createBrakeOil: createBrakeOil,
-                    searchBrakeOil: searchBrakeOil,
-                    onDeleteBrakeOil: onDeleteBrakeOil,
-                    onEditBrakeOil: onEditBrakeOil,
-                    selectBrakeOil: selectBrakeOil,
-                    onSaveBrakeOil: onSaveBrakeOil,
-                    onCloseBrakeOilDialog: onCloseBrakeOilDialog,
+                    getManualTransFluids: getManualTransFluids,
+                    createManualTransFluid: createManualTransFluid,
+                    searchManualTransFluid: searchManualTransFluid,
+                    onDeleteManualTransFluid: onDeleteManualTransFluid,
+                    onEditManualTransFluid: onEditManualTransFluid,
+                    selectManualTransFluid: selectManualTransFluid,
+                    onSaveManualTransFluid: onSaveManualTransFluid,
+                    onCloseManualTransFluidDialog: onCloseManualTransFluidDialog,
                     initialize: initialize
                     //#endregion
                 };
 
             })()
         };
-        return ist.brakeOil.viewModel;
+        return ist.manualTransFluid.viewModel;
     });

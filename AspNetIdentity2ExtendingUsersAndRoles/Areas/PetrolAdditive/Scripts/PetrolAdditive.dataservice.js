@@ -1,7 +1,7 @@
 ﻿/*
     Data service module with ajax calls to the server
 */
-define("brakeOil/brakeOil.dataservice", function () {
+define("petrolAdditive/petrolAdditive.dataservice", function () {
 
     // Data service for forecast 
     var dataService = (function () {
@@ -11,14 +11,14 @@ define("brakeOil/brakeOil.dataservice", function () {
             initialize = function () {
                 if (!isInitialized) {
                     // Define request to get power steering oils
-                    amplify.request.define('getBrakeOils', 'ajax', {
-                        url: '/Api/BrakeOil',
+                    amplify.request.define('getPetrolAdditives', 'ajax', {
+                        url: '/Api/PetrolAdditive',
                         dataType: 'json',
                         type: 'GET'
                     });
                     // Define request to Save Air Filter
-                    amplify.request.define('saveBrakeOil', 'ajax', {
-                        url: '/Api/BrakeOil',
+                    amplify.request.define('savePetrolAdditive', 'ajax', {
+                        url: '/Api/PetrolAdditive',
                         dataType: 'json',
                         decoder: amplify.request.decoders.istStatusDecoder,
                         type: 'POST'
@@ -27,20 +27,20 @@ define("brakeOil/brakeOil.dataservice", function () {
                 }
             },
             // Save Power steering oil
-            saveBrakeOil = function (param, callbacks) {
+            savePetrolAdditive = function (param, callbacks) {
                 initialize();
                 return amplify.request({
-                    resourceId: 'saveBrakeOil',
+                    resourceId: 'savePetrolAdditive',
                     success: callbacks.success,
                     error: callbacks.error,
                     data: param
                 });
             },
             // Get power steering oils
-            getBrakeOils = function (param, callbacks) {
+            getPetrolAdditives = function (param, callbacks) {
                 initialize();
                 return amplify.request({
-                    resourceId: 'getBrakeOils',
+                    resourceId: 'getPetrolAdditives',
                     success: callbacks.success,
                     error: callbacks.error,
                     data: param
@@ -49,8 +49,8 @@ define("brakeOil/brakeOil.dataservice", function () {
 
 
         return {
-            getBrakeOils: getBrakeOils,
-            saveBrakeOil: saveBrakeOil
+            getPetrolAdditives: getPetrolAdditives,
+            savePetrolAdditive: savePetrolAdditive
         };
     })();
 
