@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace IstMvcFramework.Areas.AirFilter
+namespace AspNetIdentity2ExtendingUsersAndRoles.Areas.AirFilter
 {
     public class AirFilterAreaRegistration : AreaRegistration
     {

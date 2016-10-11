@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace IstMvcFramework.Areas.OilFilter
+namespace AspNetIdentity2ExtendingUsersAndRoles.Areas.OilFilter
 {
     public class OilFilterAreaRegistration : AreaRegistration
     {

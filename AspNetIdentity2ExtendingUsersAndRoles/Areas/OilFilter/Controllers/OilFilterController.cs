@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
-namespace IstMvcFramework.Areas.OilFilter.Controllers
+namespace AspNetIdentity2ExtendingUsersAndRoles.Areas.OilFilter.Controllers
 {
     public class OilFilterController : Controller
     {

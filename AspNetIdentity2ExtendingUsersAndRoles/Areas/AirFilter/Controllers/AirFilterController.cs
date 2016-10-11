@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace IstMvcFramework.Areas.AirFilter.Controllers
+namespace AspNetIdentity2ExtendingUsersAndRoles.Areas.AirFilter.Controllers
 {
     public class AirFilterController : Controller
     {
