@@ -823,6 +823,7 @@
     <Compile Include="Areas\AirFilter\AirFilterAreaRegistration.cs" />
     <Compile Include="Areas\AirFilter\Controllers\AirFilterController.cs" />
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
+    <Compile Include="Areas\Api\Controllers\AirFilterController.cs" />
     <Compile Include="Areas\Api\Controllers\OilController.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -982,7 +983,23 @@
     </Compile>
     <Compile Include="Models\RequesModel\GetPagedListRequest.cs" />
     <Compile Include="Models\RequesModel\OilSearchRequest.cs" />
+    <Compile Include="Models\ResponseModel\AirFilterResponse.cs" />
+    <Compile Include="Models\ResponseModel\AutoTransFluidResponse.cs" />
+    <Compile Include="Models\ResponseModel\BodyPolishResponse.cs" />
+    <Compile Include="Models\ResponseModel\BodyWaxResponse.cs" />
+    <Compile Include="Models\ResponseModel\BrakeOilResponse.cs" />
+    <Compile Include="Models\ResponseModel\CarShampooResponse.cs" />
+    <Compile Include="Models\ResponseModel\CoolentResponse.cs" />
+    <Compile Include="Models\ResponseModel\EngineSprayResponse.cs" />
+    <Compile Include="Models\ResponseModel\InternalSprayResponse.cs" />
+    <Compile Include="Models\ResponseModel\ManualTransFluidResponse.cs" />
+    <Compile Include="Models\ResponseModel\MicroFibreResponse.cs" />
+    <Compile Include="Models\ResponseModel\OilFilterResponse.cs" />
     <Compile Include="Models\ResponseModel\OilResponse.cs" />
+    <Compile Include="Models\ResponseModel\PetrolAdditiveResponse.cs" />
+    <Compile Include="Models\ResponseModel\PowerSteeringOilResponse.cs" />
+    <Compile Include="Models\ResponseModel\SeatFoamSprayResponse.cs" />
+    <Compile Include="Models\ResponseModel\TyreWaxResponse.cs" />
     <Compile Include="Models\SeatFoamSpray.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

@@ -20,6 +20,16 @@
             "autoTransFluid": "/Areas/AutoTransFluid/Scripts",
             "oilFilter": "/Areas/OilFilter/Scripts",
             "powerSteeringOil": "/Areas/PowerSteeringOil/Scripts",
+            "carShampoo": "/Areas/CarShampoo/Scripts",
+            "coolent": "/Areas/Coolent/Scripts",
+            "engineSpray": "/Areas/EngineSpray/Scripts",
+            "fuelFilter": "/Areas/FuelFilter/Scripts",
+            "internalSpray": "/Areas/InternalSpray/Scripts",
+            "manualTransFluid": "/Areas/ManualTransFluid/Scripts",
+            "microFibre": "/Areas/MicroFibre/Scripts",
+            "petrolAdditive": "/Areas/PetrolAdditive/Scripts",
+            "seatFoamSpray": "/Areas/SeatFoamSpray/Scripts",
+            "tyreWax": "/Areas/TyreWax/Scripts",
         }
 
     });
