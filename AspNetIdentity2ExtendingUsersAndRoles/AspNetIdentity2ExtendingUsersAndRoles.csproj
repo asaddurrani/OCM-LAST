@@ -823,6 +823,7 @@
     <Compile Include="Areas\AirFilter\AirFilterAreaRegistration.cs" />
     <Compile Include="Areas\AirFilter\Controllers\AirFilterController.cs" />
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
+    <Compile Include="Areas\Api\Controllers\AutoTransFluidController.cs" />
     <Compile Include="Areas\Api\Controllers\AirFilterController.cs" />
     <Compile Include="Areas\Api\Controllers\OilController.cs">
       <SubType>Code</SubType>
@@ -981,6 +982,7 @@
     <Compile Include="Models\Product.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RequesModel\AirFilterRequest.cs" />
     <Compile Include="Models\RequesModel\GetPagedListRequest.cs" />
     <Compile Include="Models\RequesModel\OilSearchRequest.cs" />
     <Compile Include="Models\ResponseModel\AirFilterResponse.cs" />
