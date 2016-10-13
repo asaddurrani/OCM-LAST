@@ -983,6 +983,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RequesModel\AirFilterRequest.cs" />
+    <Compile Include="Models\RequesModel\AutoTransFluidRequest.cs" />
     <Compile Include="Models\RequesModel\GetPagedListRequest.cs" />
     <Compile Include="Models\RequesModel\OilSearchRequest.cs" />
     <Compile Include="Models\ResponseModel\AirFilterResponse.cs" />
