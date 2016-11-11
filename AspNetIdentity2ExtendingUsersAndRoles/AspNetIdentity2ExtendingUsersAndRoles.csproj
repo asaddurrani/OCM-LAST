@@ -825,9 +825,13 @@
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
     <Compile Include="Areas\Api\Controllers\AutoTransFluidController.cs" />
     <Compile Include="Areas\Api\Controllers\AirFilterController.cs" />
+    <Compile Include="Areas\Api\Controllers\BodyPolishController.cs" />
+    <Compile Include="Areas\Api\Controllers\BodyWaxController.cs" />
+    <Compile Include="Areas\Api\Controllers\BrakeOilController.cs" />
     <Compile Include="Areas\Api\Controllers\OilController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Areas\Api\Controllers\OilFilterController.cs" />
     <Compile Include="Areas\Api\testController.cs" />
     <Compile Include="Areas\AutoTransFluid\Controllers\AutoTransFluidController.cs" />
     <Compile Include="Areas\AutoTransFluid\AutoTransFluidAreaRegistration.cs" />
@@ -985,6 +989,23 @@
     <Compile Include="Models\RequesModel\AirFilterRequest.cs" />
     <Compile Include="Models\RequesModel\AutoTransFluidRequest.cs" />
     <Compile Include="Models\RequesModel\GetPagedListRequest.cs" />
+    <Compile Include="Models\RequesModel\BrakeOilSearchRequest.cs" />
+    <Compile Include="Models\RequesModel\CarShampooSearchRequest.cs" />
+    <Compile Include="Models\RequesModel\SeatFoamSpraySearchRequest.cs" />
+    <Compile Include="Models\RequesModel\MicroFibreSearchRequest.cs" />
+    <Compile Include="Models\RequesModel\VehicleSeachRequest.cs" />
+    <Compile Include="Models\RequesModel\TyreWaxSearchRequest.cs" />
+    <Compile Include="Models\RequesModel\EngineSpraySearchRequest.cs" />
+    <Compile Include="Models\RequesModel\PowerSteeringOilSearchRequest.cs" />
+    <Compile Include="Models\RequesModel\PetrolAdditiveSearchRequest.cs" />
+    <Compile Include="Models\RequesModel\ManualTransFluidSearchRequest.cs" />
+    <Compile Include="Models\RequesModel\AutoTransFluidSearchRequest.cs" />
+    <Compile Include="Models\RequesModel\CoolentSearchRequest.cs" />
+    <Compile Include="Models\RequesModel\FuelFilterSearchRequest.cs" />
+    <Compile Include="Models\RequesModel\BodyWaxSearchRequest.cs" />
+    <Compile Include="Models\RequesModel\BodyPolishSearchRequest.cs" />
+    <Compile Include="Models\RequesModel\InternalSpraySearchRequest.cs" />
+    <Compile Include="Models\RequesModel\OilFilterSearchRequest.cs" />
     <Compile Include="Models\RequesModel\OilSearchRequest.cs" />
     <Compile Include="Models\ResponseModel\AirFilterResponse.cs" />
     <Compile Include="Models\ResponseModel\AutoTransFluidResponse.cs" />
@@ -1025,6 +1046,9 @@
     <Folder Include="Areas\AirFilter\Models\" />
     <Folder Include="Areas\Api\Models\" />
     <Folder Include="Areas\Api\Views\AirFilter\" />
+    <Folder Include="Areas\Api\Views\BodyPolish\" />
+    <Folder Include="Areas\Api\Views\BodyWax\" />
+    <Folder Include="Areas\Api\Views\BrakeOil\" />
     <Folder Include="Areas\Api\Views\OilFilterMaker\" />
     <Folder Include="Areas\Api\Views\OilFilter\" />
     <Folder Include="Areas\Api\Views\OilMaker\" />

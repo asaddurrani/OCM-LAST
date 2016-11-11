@@ -20,6 +20,6 @@ namespace AspNetIdentity2ExtendingUsersAndRoles.Models.ResponseModel
         /// <summary>
         /// Total Count
         /// </summary>
-        public int TotalCount { get; set; }\
+        public int TotalCount { get; set; }
     }
 }

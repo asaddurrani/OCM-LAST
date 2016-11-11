@@ -9,13 +9,13 @@ namespace AspNetIdentity2ExtendingUsersAndRoles.Models.ResponseModel
         /// </summary>
         public BodyPolishResponse()
         {
-            BodyPolishs = new List<BodyPolish>();
+            bodyPolishes = new List<BodyPolish>();
         }
 
         /// <summary>
         /// BodyPolish
         /// </summary>
-        public IEnumerable<BodyPolish> BodyPolishs { get; set; }
+        public IEnumerable<BodyPolish> bodyPolishes { get; set; }
 
         /// <summary>
         /// Total Count
